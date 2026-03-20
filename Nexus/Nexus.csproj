@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Nexus.ApplicationServices\Services\" />
     <Folder Include="Nexus.Core\Dto\" />
     <Folder Include="Nexus.Core\SeviceInterfrace\" />
   </ItemGroup>

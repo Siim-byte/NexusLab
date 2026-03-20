@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.37027.9 d17.14
+VisualStudioVersion = 17.14.37027.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus", "Nexus.csproj", "{1DD42A55-E4D6-47DF-8AC7-65D81B0B90C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.ApplicationServices", "..\Nexus.ApplicationServices\Nexus.ApplicationServices.csproj", "{590D3EAD-3C4D-4EB2-853D-09F366D8C3BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Data", "..\Nexus.Data\Nexus.Data.csproj", "{9EE9EE60-0598-4A1F-801F-29543182D8EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Core", "..\Nexus.Core\Nexus.Core.csproj", "{6DE0F939-2113-4EF6-90C5-544CD2270F7F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{1DD42A55-E4D6-47DF-8AC7-65D81B0B90C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DD42A55-E4D6-47DF-8AC7-65D81B0B90C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DD42A55-E4D6-47DF-8AC7-65D81B0B90C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{590D3EAD-3C4D-4EB2-853D-09F366D8C3BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{590D3EAD-3C4D-4EB2-853D-09F366D8C3BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{590D3EAD-3C4D-4EB2-853D-09F366D8C3BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{590D3EAD-3C4D-4EB2-853D-09F366D8C3BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EE9EE60-0598-4A1F-801F-29543182D8EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EE9EE60-0598-4A1F-801F-29543182D8EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EE9EE60-0598-4A1F-801F-29543182D8EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EE9EE60-0598-4A1F-801F-29543182D8EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DE0F939-2113-4EF6-90C5-544CD2270F7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DE0F939-2113-4EF6-90C5-544CD2270F7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DE0F939-2113-4EF6-90C5-544CD2270F7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DE0F939-2113-4EF6-90C5-544CD2270F7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
