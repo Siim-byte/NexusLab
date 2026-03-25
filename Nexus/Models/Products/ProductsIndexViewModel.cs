@@ -1,6 +1,6 @@
-﻿namespace Nexus.Nexus.Core.Domain
+﻿namespace Nexus.Models.Products
 {
-    public class Product
+    public class ProductsIndexViewModel
     {
         public Guid ProductId { get; set; }
         public string Name { get; set; }
@@ -8,6 +8,5 @@
         public string Quality { get; set; }
         public int Stock { get; set; }
         public string Description { get; set; }
-
     }
 }

@@ -1,6 +1,12 @@
-﻿namespace Nexus.Nexus.Core.Domain
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Nexus.Core.Dto
 {
-    public class Product
+    public class ProductsDTO
     {
         public Guid ProductId { get; set; }
         public string Name { get; set; }
@@ -9,5 +15,6 @@
         public int Stock { get; set; }
         public string Description { get; set; }
 
+        
     }
 }
