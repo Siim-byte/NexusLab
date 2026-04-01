@@ -30,7 +30,7 @@ namespace Nexus.Controllers
                 Quality = x.Quality,
                 Stock = x.Stock,
                 Description = x.Description,
-            });
+            }).ToList();
             return View(result);
         }
         [HttpGet]
@@ -42,11 +42,11 @@ namespace Nexus.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductsCreateViewModel vm)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 var dto = new ProductsDTO()
                 {
-                    ProductId = (Guid)vm.ProductId,
+                    ProductId = Guid.NewGuid(),
                     Name = vm.Name,
                     Price = vm.Price,
                     Quality = vm.Quality,
@@ -54,12 +54,12 @@ namespace Nexus.Controllers
                     Description = vm.Description
                 };
                 var result = await _productsServices.Create(dto);
-                if (result == null)
+                if (result != null)
                 {
                     return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
-            }
+                ModelState.AddModelError("", "VIGA");
+            //}
             return RedirectToAction(nameof(Index));
         }
         
