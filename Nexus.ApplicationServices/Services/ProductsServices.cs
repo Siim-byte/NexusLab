@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Nexus.Core.Dto;
 using Nexus.Core.SeviceInterfrace;
 using Nexus.Data;
@@ -33,24 +32,6 @@ namespace Nexus.ApplicationServices.Services
 
             return product;
         }
-        public async Task<Product> DetailsAsync(Guid id)
-        {
-            var product = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == id);
-            return product;
-        }
-        public async Task<Product> Delete(Guid id)
-        {
-            var result = await _context.Products.FirstOrDefaultAsync(m => m.ProductId == id);
-
-            if (result == null)
-            {
-                return null;
-            }
-            _context.Products.Remove(result);
-            await _context.SaveChangesAsync();
-
-            return result;
-        }
-
+        
     }
 }

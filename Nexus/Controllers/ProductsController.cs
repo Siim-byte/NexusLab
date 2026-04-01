@@ -62,58 +62,6 @@ namespace Nexus.Controllers
             //}
             return RedirectToAction(nameof(Index));
         }
-        [HttpGet]
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            var product = await _productsServices.DetailsAsync(id);
-
-            if (product == null)
-            {
-                return NotFound();
-            }
-            
-
-            var vm = new ProductsDeleteViewModel();
-            vm.ProductId = product.ProductId;
-            vm.Name = product.Name;
-            vm.Price = product.Price;
-            vm.Quality = product.Quality;
-            vm.Stock = product.Stock;
-            vm.Description = product.Description;
-
-            return View(vm);
-
-        }
-        [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(Guid ProductId)
-        {
-            var product = await _productsServices.Delete(ProductId);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            return RedirectToAction(nameof(Index));
-        }
-        [HttpGet]
-        public async Task<IActionResult> Details(Guid id)
-        {
-            var product = await _productsServices.DetailsAsync(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            var vm = new ProductsDetailsViewModel()
-            {
-                ProductId = product.ProductId,
-                Name = product.Name,
-                Price = product.Price,
-                Quality = product.Quality,
-                Stock = product.Stock,
-                Description = product.Description,
-            };
-
-            return View(vm);
-        }
+        
     }
 }

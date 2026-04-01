@@ -29,8 +29,8 @@ namespace Nexus.ApplicationServices.Services
         {
             var user = new ApplicationUser
             {
-                //UserName = userDTO.Email,
-                //Email = userDTO.Email,
+                UserName = userDTO.Email,
+                Email = userDTO.Email,
                 ProfileType = userDTO.ProfileType,
                 DisplayName = userDTO.DisplayName,
 
