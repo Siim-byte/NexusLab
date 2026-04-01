@@ -1,0 +1,10 @@
+﻿using Nexus.Core.Dto;
+using Nexus.Nexus.Core.Domain;
+
+namespace Nexus.Core.SeviceInterfrace
+{
+    public interface IProductsServices
+    {
+        Task<Product> Create(ProductsDTO dto);
+    }
+}

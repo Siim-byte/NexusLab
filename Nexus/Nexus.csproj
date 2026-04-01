@@ -13,4 +13,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Nexus.ApplicationServices\Nexus.ApplicationServices.csproj" />
+    <ProjectReference Include="..\Nexus.Data\Nexus.Data.csproj" />
+  </ItemGroup>
+
 </Project>
