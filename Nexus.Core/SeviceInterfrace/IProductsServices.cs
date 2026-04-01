@@ -6,5 +6,7 @@ namespace Nexus.Core.SeviceInterfrace
     public interface IProductsServices
     {
         Task<Product> Create(ProductsDTO dto);
+        Task<Product> DetailsAsync(Guid id);
+        Task<Product> Delete(Guid id);
     }
 }
