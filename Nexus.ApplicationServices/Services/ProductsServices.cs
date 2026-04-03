@@ -51,6 +51,23 @@ namespace Nexus.ApplicationServices.Services
 
             return result;
         }
+        public async Task<Product> Update(ProductsDTO dto)
+        {
+            var product = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == dto.ProductId);
+            if (product == null)
+            {
+                return null;
+            }
+            product.Name = dto.Name;
+            product.Price = dto.Price;
+            product.Quality = dto.Quality;
+            product.Stock = dto.Stock;
+            product.Description = dto.Description;
+
+            _context.Products.Update(product);
+            await _context.SaveChangesAsync();
+            return product;
+        }
 
     }
 }

@@ -115,5 +115,47 @@ namespace Nexus.Controllers
 
             return View(vm);
         }
+        [HttpGet]
+        public async Task<IActionResult> Update(Guid id)
+        {
+            var product = await _productsServices.DetailsAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            var vm = new ProductUpdateViewModel()
+            {
+                ProductId = product.ProductId,
+                Name = product.Name,
+                Price = product.Price,
+                Quality = product.Quality,
+                Stock = product.Stock,
+                Description = product.Description,
+            };
+            return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(ProductUpdateViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var dto = new ProductsDTO()
+                {
+                    ProductId = vm.ProductId,
+                    Name = vm.Name,
+                    Price = vm.Price,
+                    Quality = vm.Quality,
+                    Stock = vm.Stock,
+                    Description = vm.Description
+                };
+                var result = await _productsServices.Update(dto);
+                if (result != null)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                ModelState.AddModelError("", "VIGA");
+            }
+            return View(vm);
+        }
     }
 }

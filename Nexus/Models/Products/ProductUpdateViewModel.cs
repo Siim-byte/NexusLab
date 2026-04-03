@@ -1,6 +1,6 @@
-﻿    namespace Nexus.Models.Products
+﻿namespace Nexus.Models.Products
 {
-    public class ProductsIndexViewModel
+    public class ProductUpdateViewModel
     {
         public Guid ProductId { get; set; }
         public string Name { get; set; }

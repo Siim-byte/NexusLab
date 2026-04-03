@@ -34,6 +34,7 @@
                     <td>@product.Description</td>
                     <td>
 						<a asp-action="Delete" asp-controller="Products" asp-route-id="@product.ProductId" class="btn btn-danger">Kustuta</a>
+                        <a asp-action="Update" asp-controller="Products" asp-route-id="@product.ProductId" class="btn btn-danger">Muuda</a>
                     </td>
                 </tr>
                 rowNumber += 1;
