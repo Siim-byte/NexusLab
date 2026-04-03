@@ -8,5 +8,6 @@ namespace Nexus.Core.SeviceInterfrace
         Task<Product> Create(ProductsDTO dto);
         Task<Product> DetailsAsync(Guid id);
         Task<Product> Delete(Guid id);
+        Task<Product> Update(ProductsDTO dto);
     }
 }
