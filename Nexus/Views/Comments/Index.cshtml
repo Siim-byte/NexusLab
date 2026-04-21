@@ -5,7 +5,7 @@
 }
 
 <div>
-    <a asp-action="Create" asp-controller="Comments" type="Submit" class="btn btn-primary">Add Comment</a>
+    <a asp-action="Create" asp-controller="Comments" asp-route-productId="@Context.Request.RouteValues["id"]" type="Submit" class="btn btn-primary">Add Comment</a>
 </div>
 <div class="h1">
     Kommentaar
@@ -26,8 +26,8 @@
                     <td>@comment.EntryCreatedAt</td>
                     <td>@comment.Content</td>
                     <td>
-                        <a asp-action="Delete" asp-controller="Products" asp-route-id="@comment.CommentId" class="btn btn-danger">Kustuta</a>
-                        <a asp-action="Update" asp-controller="Products" asp-route-id="@comment.CommentId" class="btn btn-danger">Muuda</a>
+                        <a asp-action="Delete" asp-controller="Comments" asp-route-id="@comment.CommentId" class="btn btn-danger">Kustuta</a>
+                        <a asp-action="Update" asp-controller="Comments" asp-route-id="@comment.CommentId" class="btn btn-danger">Muuda</a>
 
                     </td>
                 </tr>

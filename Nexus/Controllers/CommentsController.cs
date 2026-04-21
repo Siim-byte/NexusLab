@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Nexus.ApplicationServices.Services;
 using Nexus.Core.Dto;
 using Nexus.Core.SeviceInterfrace;
 using Nexus.Data;
@@ -17,7 +18,7 @@ namespace Nexus.Controllers
             )
         {
             _context = context;
-            _commentsServices = _commentsServices;
+            _commentsServices = commentsServices;
         }
         public IActionResult Index(Guid id)
         {
@@ -30,9 +31,12 @@ namespace Nexus.Controllers
             return View(result);
         }
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(Guid productId)
         {
-            CommentsCreateViewModel result = new();
+            CommentsCreateViewModel result = new()
+            {
+                ProductId = productId
+            };
             return View("Create", result);
         }
         [HttpPost]
@@ -41,10 +45,19 @@ namespace Nexus.Controllers
             var dto = new CommentsDTO()
             {
                 CommentId = Guid.NewGuid(),
-                EntryCreatedAt = DateTime.,
-                Content = dto.Content
-                
+                Content = vm.Content,
+                ProductId = (Guid)vm.ProductId,
+                EntryCreatedAt = DateTime.Now
+
             };
+            var result = await _commentsServices.Create(dto);
+            if (result != null)
+            {
+                return RedirectToAction(nameof(Index), new {id = vm.ProductId});
+            }
+            ModelState.AddModelError("", "VIGA");
+
+            return View(vm);
         }
     }
 }
