@@ -86,5 +86,43 @@ namespace Nexus.Controllers
             }
             return RedirectToAction(nameof(Index), new { id = vm.ProductId });
         }
+        [HttpGet]
+        public async Task<IActionResult> Update(Guid id)
+        {
+            var comment = await _commentsServices.DetailsAsync(id);
+            if (comment == null)
+            {
+                return NotFound();
+            }
+            var vm = new CommentsUpdateViewModel()
+            {
+                CommentId = comment.CommentId,
+                Content = comment.Content,
+                ProductId = comment.ProductId
+            };
+            return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(CommentsUpdateViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(vm);
+            }    
+            {
+                var dto = new CommentsDTO()
+                {
+                    CommentId = vm.CommentId,
+                    Content = vm.Content,
+                    ProductId = vm.ProductId,
+                };
+                var result = await _commentsServices.Update(dto);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return RedirectToAction(nameof(Index), new { id = vm.ProductId });
+            }
+        }
     }
 }

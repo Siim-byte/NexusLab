@@ -14,6 +14,6 @@ namespace Nexus.Core.SeviceInterfrace
         Task<Comment> Create(CommentsDTO dto);
         Task<Comment> DetailsAsync(Guid id);
         Task<Comment> Delete(Guid id);
-
+        Task<Comment> Update(CommentsDTO dto);
     }
 }
