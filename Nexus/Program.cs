@@ -18,6 +18,7 @@ namespace Nexus
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IProductsServices, ProductsServices>();
+            builder.Services.AddScoped<ICommentsServices, CommentsServices>();
 
             var app = builder.Build();
 
