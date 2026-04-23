@@ -1,0 +1,19 @@
+﻿@using Nexus.Models.Comments
+
+@model Nexus.Models.Comments.CommentsUpdateViewModel
+
+<div>
+    <form method="post" enctype="multipart/form-data">
+        <input asp-for="ProductId" type="hidden" />
+        <input asp-for="CommentId" type="hidden" />
+
+        <div class="form-group row">
+            <label asp-for="Content" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="Content" class="form-control" />
+            </div>
+        
+        <input asp-action="Update" asp-controller="Comments" type="submit" class="btn btn-primary" value="Update" />
+        <a asp-action="Index" asp-controller="Comments" class="btn btn-success">Back</a>
+    </form>
+</div>

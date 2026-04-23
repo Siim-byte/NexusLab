@@ -48,5 +48,20 @@ namespace Nexus.ApplicationServices.Services
             await _context.SaveChangesAsync();
             return result;
         }
+        public async Task<Comment> Update(CommentsDTO dto)
+        {
+            var comment = await _context.Comments.FirstOrDefaultAsync(x => x.CommentId == dto.CommentId);
+            if (comment == null)
+            {
+                return null;
+            }
+            comment.Content = dto.Content;
+            comment.ProductId = dto.ProductId;
+            comment.EntryCreatedAt = dto.EntryCreatedAt;
+
+            _context.Comments.Update(comment);
+            await _context.SaveChangesAsync();
+            return comment;
+        }
     }
 }
