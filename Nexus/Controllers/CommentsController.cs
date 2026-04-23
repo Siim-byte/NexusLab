@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Nexus.ApplicationServices.Services;
 using Nexus.Core.Dto;
 using Nexus.Core.SeviceInterfrace;
@@ -53,11 +54,37 @@ namespace Nexus.Controllers
             var result = await _commentsServices.Create(dto);
             if (result != null)
             {
-                return RedirectToAction(nameof(Index), new {id = vm.ProductId});
+                return RedirectToAction(nameof(Index), new { id = vm.ProductId });
             }
             ModelState.AddModelError("", "VIGA");
 
             return View(vm);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var result = await _commentsServices.DetailsAsync(id);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            var vm = new CommentsDeleteViewModel()
+            {
+                CommentId = result.CommentId,
+                Content = result.Content,
+                ProductId = result.ProductId
+            };
+            return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(CommentsDeleteViewModel vm)
+        {
+            var result = await _commentsServices.Delete(vm.CommentId);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return RedirectToAction(nameof(Index), new { id = vm.ProductId });
         }
     }
 }

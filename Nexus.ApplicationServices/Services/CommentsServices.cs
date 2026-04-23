@@ -1,4 +1,5 @@
-﻿using Nexus.Core.Domain;
+﻿using Microsoft.EntityFrameworkCore;
+using Nexus.Core.Domain;
 using Nexus.Core.Dto;
 using Nexus.Core.SeviceInterfrace;
 using Nexus.Data;
@@ -21,7 +22,7 @@ namespace Nexus.ApplicationServices.Services
         public async Task<Comment> Create(CommentsDTO dto)
         {
             Comment comment = new Comment();
-            comment.CommentId = dto.CommentId;
+            comment.CommentId = Guid.NewGuid();
             comment.Content = dto.Content;
             comment.ProductId = dto.ProductId;
             comment.EntryCreatedAt = dto.EntryCreatedAt;
@@ -30,6 +31,22 @@ namespace Nexus.ApplicationServices.Services
             await _context.SaveChangesAsync();
 
             return comment;
+        }
+        public async Task<Comment> DetailsAsync(Guid id)
+        {
+            var comment = await _context.Comments.FirstOrDefaultAsync(x => x.CommentId == id);
+            return comment;
+        }
+        public async Task<Comment> Delete(Guid id)
+        {
+            var result = await _context.Comments.FirstOrDefaultAsync(m => m.CommentId == id);
+            if (result == null)
+            {
+                return null;
+            }
+            _context.Comments.Remove(result);
+            await _context.SaveChangesAsync();
+            return result;
         }
     }
 }
