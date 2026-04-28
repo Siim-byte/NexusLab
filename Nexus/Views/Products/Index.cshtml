@@ -20,6 +20,7 @@
                 <th scope="col">Kvaliteet</th>
                 <th scope="col">Varu</th>
                 <th scope="col">Kirjeldus</th>
+                <th scope="col">Hinda</th>
             </tr>
         </thead>
         <tbody>
@@ -33,9 +34,23 @@
                     <td>@product.Stock</td>
                     <td>@product.Description</td>
                     <td>
+                        <form asp-action="Upvote" asp-route-id="@product.ProductId" method="post">
+                            @if (product.Votes > 0)
+                            {
+                                <button type="submit" class="btn btn-success">Liked (@product.Votes)</button>
+                            }
+                            else
+                            {
+                                <button type="submit" class="btn btn-outline-secondary">Like</button>
+                            }
+                        </form>
+                    </td>
+                    <td>
 						<a asp-action="Delete" asp-controller="Products" asp-route-id="@product.ProductId" class="btn btn-danger">Kustuta</a>
                         <a asp-action="Update" asp-controller="Products" asp-route-id="@product.ProductId" class="btn btn-danger">Muuda</a>
                         <a asp-action="Index" asp-controller="Comments" asp-route-id="@product.ProductId" class="btn btn-primary">Kommetaar</a>
+
+
                     </td>
                 </tr>
                 rowNumber += 1;
