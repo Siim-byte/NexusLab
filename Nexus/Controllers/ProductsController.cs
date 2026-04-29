@@ -30,6 +30,7 @@ namespace Nexus.Controllers
                 Quality = x.Quality,
                 Stock = x.Stock,
                 Description = x.Description,
+                Votes = x.Votes,
             }).ToList();
             return View(result);
         }
@@ -156,6 +157,23 @@ namespace Nexus.Controllers
                 ModelState.AddModelError("", "VIGA");
             }
             return View(vm);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Upvote(Guid id)
+        {
+            var product = await _context.Products.FindAsync(id);
+
+            if (product != null)
+            {
+                // See rida garanteerib, et Votes suureneb, isegi kui see on andmebaasis 0
+                product.Votes++;
+
+                _context.Update(product);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
