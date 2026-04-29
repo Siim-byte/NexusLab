@@ -159,14 +159,20 @@ namespace Nexus.Controllers
             return View(vm);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Upvote(Guid id)
         {
             var product = await _context.Products.FindAsync(id);
+
             if (product != null)
             {
-                product.Votes += 1;
+                // See rida garanteerib, et Votes suureneb, isegi kui see on andmebaasis 0
+                product.Votes++;
+
+                _context.Update(product);
                 await _context.SaveChangesAsync();
             }
+
             return RedirectToAction(nameof(Index));
         }
     }
