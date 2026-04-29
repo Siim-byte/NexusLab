@@ -30,7 +30,8 @@ namespace Nexus.Controllers
                 Quality = x.Quality,
                 Stock = x.Stock,
                 Description = x.Description,
-                Votes = x.Votes,
+                Upvotes = x.Upvotes,
+                Downvotes = x.Downvotes,
             }).ToList();
             return View(result);
         }
@@ -167,7 +168,23 @@ namespace Nexus.Controllers
             if (product != null)
             {
                 // See rida garanteerib, et Votes suureneb, isegi kui see on andmebaasis 0
-                product.Votes++;
+                product.Upvotes++;
+
+                _context.Update(product);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Downvote(Guid id)
+        {
+            var product = await _context.Products.FindAsync(id);
+
+            if (product != null)
+            {
+                product.Downvotes++;
 
                 _context.Update(product);
                 await _context.SaveChangesAsync();

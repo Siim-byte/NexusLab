@@ -35,8 +35,13 @@
                 <td>@product.Description</td>
                 <td>
                     <form asp-action="Upvote" asp-controller="Products" asp-route-id="@product.ProductId" method="post" style="display:inline;">
-                        <button type="submit" class="btn @(product.Votes > 0 ? "btn-success" : "btn-outline-secondary")">
-                            👍 (@product.Votes)
+                        <button type="submit" class="btn @(product.Upvotes > 0 ? "btn-success" : "btn-outline-secondary")">
+                            👍 (@product.Upvotes)
+                        </button>
+                    </form>
+                    <form asp-action="Downvote" asp-controller="Products" asp-route-id="@product.ProductId" method="post" style="display:inline;">
+                        <button type="submit" class="btn @(product.Downvotes > 0 ? "btn-danger" : "btn-outline-secondary")">
+                            👎 (@product.Downvotes)
                         </button>
                     </form>
                 </td>
