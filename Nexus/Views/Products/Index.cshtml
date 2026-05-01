@@ -47,6 +47,7 @@
                 </td>
                 <td>
                     <div class="btn-group">
+                        <a asp-action="Details" asp-controller="Products" asp-route-id="@product.ProductId" class="btn btn-primary">Detailid</a>
                         <a asp-action="Delete" asp-controller="Products" asp-route-id="@product.ProductId" class="btn btn-danger">Kustuta</a>
                         <a asp-action="Update" asp-controller="Products" asp-route-id="@product.ProductId" class="btn btn-danger">Muuda</a>
                         <a asp-action="Index" asp-controller="Comments" asp-route-id="@product.ProductId" class="btn btn-primary">Kommetaar</a>
