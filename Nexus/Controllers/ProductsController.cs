@@ -46,21 +46,21 @@ namespace Nexus.Controllers
         {
             //if (ModelState.IsValid)
             //{
-                var dto = new ProductsDTO()
-                {
-                    ProductId = Guid.NewGuid(),
-                    Name = vm.Name,
-                    Price = vm.Price,
-                    Quality = vm.Quality,
-                    Stock = vm.Stock,
-                    Description = vm.Description
-                };
-                var result = await _productsServices.Create(dto);
-                if (result != null)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-                ModelState.AddModelError("", "VIGA");
+            var dto = new ProductsDTO()
+            {
+                ProductId = Guid.NewGuid(),
+                Name = vm.Name,
+                Price = vm.Price,
+                Quality = vm.Quality,
+                Stock = vm.Stock,
+                Description = vm.Description
+            };
+            var result = await _productsServices.Create(dto);
+            if (result != null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            ModelState.AddModelError("", "VIGA");
             //}
             return RedirectToAction(nameof(Index));
         }
@@ -73,7 +73,7 @@ namespace Nexus.Controllers
             {
                 return NotFound();
             }
-            
+
 
             var vm = new ProductsDeleteViewModel();
             vm.ProductId = product.ProductId;
@@ -113,6 +113,8 @@ namespace Nexus.Controllers
                 Quality = product.Quality,
                 Stock = product.Stock,
                 Description = product.Description,
+                Upvotes = product.Upvotes,
+                Downvotes = product.Downvotes
             };
 
             return View(vm);
