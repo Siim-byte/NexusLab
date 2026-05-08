@@ -29,8 +29,8 @@ namespace Nexus.ApplicationServices.Services
         {
             var user = new ApplicationUser
             {
-                //UserName = userDTO.Email,
-                //Email = userDTO.Email,
+                UserName = userDTO.Email,
+                Email = userDTO.Email,
                 ProfileType = userDTO.ProfileType,
                 DisplayName = userDTO.DisplayName,
 
@@ -43,10 +43,10 @@ namespace Nexus.ApplicationServices.Services
             return user;
         }
 
-        //public async Task<ApplicationUser> Login(LoginDTO userDTO)
-        //{
-        //    var user = await _userManager.FindByEmailAsync(userDTO.Email);
-        //    return user;
-        //}
+        public async Task<ApplicationUser> Login(LoginDTO userDTO)
+        {
+            var user = await _userManager.FindByEmailAsync(userDTO.Email);
+            return user;
+        }
     }
 }

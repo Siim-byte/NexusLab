@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Nexus.ApplicationServices.Services;
+using Nexus.Core.Domain;
 using Nexus.Core.SeviceInterfrace;
 using Nexus.Data;
 
@@ -19,7 +21,11 @@ namespace Nexus
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IProductsServices, ProductsServices>();
             builder.Services.AddScoped<ICommentsServices, CommentsServices>();
+            builder.Services.AddScoped<IAccountServices, AccountServices>();
 
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+           .AddEntityFrameworkStores<ApplicationDbContext>()
+           .AddDefaultTokenProviders();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -35,6 +41,7 @@ namespace Nexus
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Nexus.Core.Domain.ApplicationUser> signInManager;
+@inject UserManager<Nexus.Core.Domain.ApplicationUser> userManager
+@{
+    var user = await userManager.GetUserAsync(User);
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -31,12 +37,30 @@
                        
                     </ul>
                     <ul>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="Register">Registreeru</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="Login">Logi sisse</a>
-                        </li>
+                        @if (signInManager.IsSignedIn(User))
+                            {
+                            <li class="nav-item">
+                                <p>Tere, @user.DisplayName</p>
+                            </li>
+                                    
+                            <li class="nav-item">
+                                <form method="post" asp-controller="Accounts" asp-action="LogOut">
+                                    <button type="submit" class="nav-link btn btn-link" style="width:auto" ; padding:0.8rem;">
+                                        Logi välja
+                                    </button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="Register">Registreeru</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="Login">Logi sisse</a>
+                            </li>
+                        }
+
                     </ul>
                 </div>
             </div>
