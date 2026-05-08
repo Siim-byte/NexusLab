@@ -40,9 +40,11 @@
                         @if (signInManager.IsSignedIn(User))
                             {
                             <li class="nav-item">
-                                <p>Tere, @user.DisplayName</p>
+                                <a>Tere, @user.DisplayName</a>
                             </li>
-                                    
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="ChangePassword">Vaheta parool</a>
+                            </li>
                             <li class="nav-item">
                                 <form method="post" asp-controller="Accounts" asp-action="LogOut">
                                     <button type="submit" class="nav-link btn btn-link" style="width:auto" ; padding:0.8rem;">
