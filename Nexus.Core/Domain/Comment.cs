@@ -7,5 +7,6 @@
         public string Content { get; set; }
         public Guid ProductId { get; set; }
         public string AuthorName { get; set; }
+        public string UserId { get; set; }
     }
 }

@@ -1,5 +1,10 @@
 ﻿@model IEnumerable<Nexus.Models.Comments.CommentsIndexViewModel>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<Nexus.Core.Domain.ApplicationUser> userManager
 
+@{
+    var user = await userManager.GetUserAsync(User);
+}
 @{
     int rowNumber = 1;
 }
@@ -27,9 +32,17 @@
                     <td>@comment.EntryCreatedAt</td>
                     <td>@comment.Content</td>
                     <td>
-                        <a asp-action="Delete" asp-controller="Comments" asp-route-id="@comment.CommentId" class="btn btn-danger">Kustuta</a>
-                        <a asp-action="Update" asp-controller="Comments" asp-route-id="@comment.CommentId" class="btn btn-danger">Muuda</a>
+                        @if (user != null && (comment.UserId == user.Id || user.ProfileType == true))
+                        {
+                            <a asp-action="Delete" asp-controller="Comments" asp-route-id="@comment.CommentId" class="btn btn-danger">Kustuta</a>
+                            
+                        }
 
+                        @if (user != null && (comment.UserId == user.Id))
+                        {
+                            <a asp-action="Update" asp-controller="Comments" asp-route-id="@comment.CommentId" class="btn btn-danger">Muuda</a>
+                        }
+                       
                     </td>
                 </tr>
                 rowNumber += 1;

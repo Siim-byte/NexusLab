@@ -6,5 +6,6 @@
         public DateTime EntryCreatedAt { get; set; }
         public string Content { get; set; }
         public string AuthorName { get; set; }
+        public string UserId { get; set; }
     }
 }

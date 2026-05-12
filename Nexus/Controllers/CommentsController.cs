@@ -33,7 +33,8 @@ namespace Nexus.Controllers
                 CommentId = x.CommentId,
                 EntryCreatedAt = x.EntryCreatedAt,
                 Content = x.Content,
-                AuthorName = x.AuthorName
+                AuthorName = x.AuthorName,
+                UserId = x.UserId
             }).ToList();
             return View(result);
         }
@@ -56,7 +57,8 @@ namespace Nexus.Controllers
                 Content = vm.Content,
                 ProductId = (Guid)vm.ProductId,
                 EntryCreatedAt = DateTime.Now,
-                AuthorName = user.DisplayName
+                AuthorName = user.DisplayName,
+                UserId = _userManager.GetUserId(User),
             };
             var result = await _commentsServices.Create(dto);
             if (result != null)
