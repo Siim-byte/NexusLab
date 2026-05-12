@@ -14,5 +14,6 @@ namespace Nexus.Core.Domain
         public bool ProfileType { get; set; }
         public string? Gender { get; set; }
         public int? Age { get; set; }
+
     }
 }

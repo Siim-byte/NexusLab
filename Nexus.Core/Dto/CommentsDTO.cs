@@ -12,5 +12,6 @@ namespace Nexus.Core.Dto
         public DateTime EntryCreatedAt { get; set; }
         public string Content { get; set; }
         public Guid ProductId { get; set; }
+        public string AuthorName { get; set; }
     }
 }

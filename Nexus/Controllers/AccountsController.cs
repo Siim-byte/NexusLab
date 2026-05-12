@@ -199,7 +199,6 @@ namespace Nexus.Controllers
                     Email = model.Email,
                     ProfileType = model.ProfileType,
                     DisplayName = model.DisplayName,
-
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
 

@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Nexus.ApplicationServices.Services;
+using Nexus.Core.Domain;
 using Nexus.Core.Dto;
 using Nexus.Core.SeviceInterfrace;
 using Nexus.Data;
@@ -12,14 +14,17 @@ namespace Nexus.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ICommentsServices _commentsServices;
+        private readonly UserManager<ApplicationUser> _userManager;
         public CommentsController
             (
             ApplicationDbContext context,
-            ICommentsServices commentsServices
+            ICommentsServices commentsServices,
+            UserManager<ApplicationUser> userManager
             )
         {
             _context = context;
             _commentsServices = commentsServices;
+            _userManager = userManager;
         }
         public IActionResult Index(Guid id)
         {
@@ -27,7 +32,8 @@ namespace Nexus.Controllers
             {
                 CommentId = x.CommentId,
                 EntryCreatedAt = x.EntryCreatedAt,
-                Content = x.Content
+                Content = x.Content,
+                AuthorName = x.AuthorName
             }).ToList();
             return View(result);
         }
@@ -43,13 +49,14 @@ namespace Nexus.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CommentsCreateViewModel vm)
         {
+            var user = await _userManager.GetUserAsync(User);
             var dto = new CommentsDTO()
             {
                 CommentId = Guid.NewGuid(),
                 Content = vm.Content,
                 ProductId = (Guid)vm.ProductId,
-                EntryCreatedAt = DateTime.Now
-
+                EntryCreatedAt = DateTime.Now,
+                AuthorName = user.DisplayName
             };
             var result = await _commentsServices.Create(dto);
             if (result != null)

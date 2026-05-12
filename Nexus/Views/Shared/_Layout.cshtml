@@ -42,6 +42,12 @@
                             <li class="nav-item">
                                 <a>Tere, @user.DisplayName</a>
                             </li>
+                                @if (user.ProfileType == true)
+                                {
+                                <li class="nav-item">
+                                    <a>Sina oled manager</a>
+                                </li>
+                                }
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="ChangePassword">Vaheta parool</a>
                             </li>

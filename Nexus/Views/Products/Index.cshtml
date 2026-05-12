@@ -1,12 +1,18 @@
-﻿@model IEnumerable<Nexus.Models.Products.ProductsIndexViewModel>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Nexus.Core.Domain.ApplicationUser> signInManager;
+@model IEnumerable<Nexus.Models.Products.ProductsIndexViewModel>
 
 @{
     int rowNumber = 1;
 }
+@if (signInManager.IsSignedIn(User))
+{
+    <div class="mb-3">
+        <a asp-action="Create" asp-controller="Products" class="btn btn-primary">Add Product</a>
+    </div>
+}
 
-<div class="mb-3">
-    <a asp-action="Create" asp-controller="Products" class="btn btn-primary">Add Product</a>
-</div>
+
 
 <h1 class="mb-4">Tooted</h1>
 
@@ -20,39 +26,52 @@
             <th scope="col">Varu</th>
             <th scope="col">Kirjeldus</th>
             <th scope="col">Hinda</th>
-            <th scope="col">Tegevused</th>
+            @if (signInManager.IsSignedIn(User))
+            {
+                <th scope="col">Tegevused</th>
+            }
+            
         </tr>
     </thead>
     <tbody>
         @foreach (var product in Model)
         {
             <tr>
-                <td>@rowNumber</td>
-                <td>@product.Name</td>
-                <td>@product.Price</td>
-                <td>@product.Quality</td>
-                <td>@product.Stock</td>
-                <td>@product.Description</td>
-                <td>
-                    <form asp-action="Upvote" asp-controller="Products" asp-route-id="@product.ProductId" method="post" style="display:inline;">
-                        <button type="submit" class="btn @(product.Upvotes > 0 ? "btn-success" : "btn-outline-secondary")">
-                            👍 (@product.Upvotes)
-                        </button>
-                    </form>
-                    <form asp-action="Downvote" asp-controller="Products" asp-route-id="@product.ProductId" method="post" style="display:inline;">
-                        <button type="submit" class="btn @(product.Downvotes > 0 ? "btn-danger" : "btn-outline-secondary")">
-                            👎 (@product.Downvotes)
-                        </button>
-                    </form>
-                </td>
-                <td>
-                    <div class="btn-group">
-                        <a asp-action="Details" asp-controller="Products" asp-route-id="@product.ProductId" class="btn btn-primary">Detailid</a>
-                        <a asp-action="Delete" asp-controller="Products" asp-route-id="@product.ProductId" class="btn btn-danger">Kustuta</a>
-                        <a asp-action="Update" asp-controller="Products" asp-route-id="@product.ProductId" class="btn btn-danger">Muuda</a>
-                        <a asp-action="Index" asp-controller="Comments" asp-route-id="@product.ProductId" class="btn btn-primary">Kommetaar</a>
-                    </div>
-                </td>
+                
+                
+                    <td>@rowNumber</td>
+                    <td>@product.Name</td>
+                    <td>@product.Price</td>
+                    <td>@product.Quality</td>
+                    <td>@product.Stock</td>
+                    <td>@product.Description</td>
+                    <td>
+                        <form asp-action="Upvote" asp-controller="Products" asp-route-id="@product.ProductId" method="post" style="display:inline;">
+                            <button type="submit" class="btn @(product.Upvotes > 0 ? "btn-success" : "btn-outline-secondary")">
+                                👍 (@product.Upvotes)
+                            </button>
+                        </form>
+                        <form asp-action="Downvote" asp-controller="Products" asp-route-id="@product.ProductId" method="post" style="display:inline;">
+                            <button type="submit" class="btn @(product.Downvotes > 0 ? "btn-danger" : "btn-outline-secondary")">
+                                👎 (@product.Downvotes)
+                            </button>
+                        </form>
+                    </td>
+                @if (signInManager.IsSignedIn(User))
+                {
+                    <td>
+                        <div class="btn-group">
+                            <a asp-action="Details" asp-controller="Products" asp-route-id="@product.ProductId" class="btn btn-primary">Detailid</a>
+                            <a asp-action="Delete" asp-controller="Products" asp-route-id="@product.ProductId" class="btn btn-danger">Kustuta</a>
+                            <a asp-action="Update" asp-controller="Products" asp-route-id="@product.ProductId" class="btn btn-danger">Muuda</a>
+                            <a asp-action="Index" asp-controller="Comments" asp-route-id="@product.ProductId" class="btn btn-primary">Kommetaar</a>
+                        </div>
+                    </td>
+                }
+                    
+                
+                
+                
             </tr>
             rowNumber++;
         }

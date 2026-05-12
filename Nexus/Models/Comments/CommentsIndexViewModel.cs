@@ -5,5 +5,6 @@
         public Guid CommentId { get; set; }
         public DateTime EntryCreatedAt { get; set; }
         public string Content { get; set; }
+        public string AuthorName { get; set; }
     }
 }

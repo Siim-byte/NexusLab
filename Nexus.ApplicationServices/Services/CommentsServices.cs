@@ -26,6 +26,7 @@ namespace Nexus.ApplicationServices.Services
             comment.Content = dto.Content;
             comment.ProductId = dto.ProductId;
             comment.EntryCreatedAt = dto.EntryCreatedAt;
+            comment.AuthorName = dto.AuthorName;
 
             await _context.Comments.AddAsync(comment);
             await _context.SaveChangesAsync();

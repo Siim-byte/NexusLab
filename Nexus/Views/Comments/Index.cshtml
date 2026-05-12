@@ -3,7 +3,6 @@
 @{
     int rowNumber = 1;
 }
-
 <div>
     <a asp-action="Create" asp-controller="Comments" asp-route-productId="@Context.Request.RouteValues["id"]" type="Submit" class="btn btn-primary">Add Comment</a>
 </div>
@@ -14,6 +13,7 @@
     <table class="table table-hover">
         <thead>
             <tr>
+                <th scope="col">Nimi</th>
                 <th scope="col">Kuupäev</th>
                 <th scope="col">Komment</th>
             </tr>
@@ -23,6 +23,7 @@
             {
                 <tr>
 
+                    <td>@comment.AuthorName</td>
                     <td>@comment.EntryCreatedAt</td>
                     <td>@comment.Content</td>
                     <td>
