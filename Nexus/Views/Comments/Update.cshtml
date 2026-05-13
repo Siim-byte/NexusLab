@@ -14,6 +14,11 @@
             </div>
         
         <input asp-action="Update" asp-controller="Comments" type="submit" class="btn btn-primary" value="Update" />
-        <a asp-action="Index" asp-controller="Comments" class="btn btn-success">Back</a>
+            <a asp-action="Index"
+                   asp-controller="Comments"
+                   asp-route-id="@Model.ProductId"
+                   class="btn btn-success">
+                Tagasi
+            </a>
     </form>
 </div>

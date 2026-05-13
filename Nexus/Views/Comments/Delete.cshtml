@@ -17,6 +17,11 @@
         <input type="hidden" asp-for="ProductId" />
         <input type="hidden" asp-for="CommentId" />
         <input type="submit" value="Remove" class="btn btn-danger" />
-        <a asp-action="Index" asp-controller="Comments" class="btn btn-danger">Tagasi</a>
+        <a asp-action="Index"
+               asp-controller="Comments"
+               asp-route-id="@Model.ProductId"
+               class="btn btn-success">
+            Tagasi
+        </a>
     </form>
 </div>
