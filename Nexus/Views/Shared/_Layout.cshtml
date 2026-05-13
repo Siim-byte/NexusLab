@@ -34,8 +34,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Tooted</a>
                         </li>
-                       
-                    </ul>
+                        @if (user != null && user.ProfileType == true)
+                            {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="Index">Kasutajad</a>
+                            </li>
+                            }
+                        </ul>
                     <ul>
                         @if (signInManager.IsSignedIn(User))
                             {

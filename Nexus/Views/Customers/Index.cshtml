@@ -1,0 +1,38 @@
+﻿@using Nexus.Models.Customers
+@model IEnumerable<CustomersIndexViewModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Manager</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.DisplayName</td>
+                <td>@user.Email</td>
+                <td>@user.ProfileType</td>
+
+                <td>
+                    <a asp-action="Update"
+                           asp-route-id="@user.Id"
+                           class="btn btn-warning">
+                        Muuda
+                    </a>
+
+                    <a asp-action="Delete"
+                           asp-route-id="@user.Id"
+                           class="btn btn-danger">
+                        Kustuta
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
