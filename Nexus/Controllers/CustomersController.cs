@@ -35,39 +35,70 @@ namespace Nexus.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (!user.ProfileType)
+            var currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser == null || !currentUser.ProfileType)
             {
                 return Forbid();
             }
 
-            var user1 = await _userManager.FindByIdAsync(id);
+            var userToDelete = await _userManager.FindByIdAsync(id);
 
-            if (user1 == null)
+            if (userToDelete == null)
             {
                 return NotFound();
             }
 
-            return View(user1);
+            
+            if (currentUser.Id == userToDelete.Id)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            
+            if (userToDelete.ProfileType)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var vm = new CustomersDeleteViewModel()
+            {
+                Id = userToDelete.Id,
+                DisplayName = userToDelete.DisplayName,
+                Email = userToDelete.Email
+            };
+
+            return View(vm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(CustomersDeleteViewModel vm)
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (!user.ProfileType)
+            var currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser == null || !currentUser.ProfileType)
             {
                 return Forbid();
             }
 
-            var user1 = await _userManager.FindByIdAsync(id);
+            var userToDelete = await _userManager.FindByIdAsync(vm.Id);
 
-            if (user1 == null)
+            if (userToDelete == null)
             {
                 return NotFound();
             }
 
-            await _userManager.DeleteAsync(user1);
+            if (currentUser.Id == userToDelete.Id)
+            {
+                return Forbid();
+            }
+  
+            if (userToDelete.ProfileType)
+            {
+                return Forbid();
+            }
+
+            await _userManager.DeleteAsync(userToDelete);
 
             return RedirectToAction(nameof(Index));
         }
