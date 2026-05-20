@@ -55,7 +55,12 @@ namespace Nexus.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            
+            if (userToDelete.ProfileType)
+            {
+                TempData["Error"] = "Manageri ei saa kustutada!";
+                return RedirectToAction(nameof(Index));
+            }
+
             if (userToDelete.ProfileType)
             {
                 return RedirectToAction(nameof(Index));
@@ -92,13 +97,90 @@ namespace Nexus.Controllers
             {
                 return Forbid();
             }
-  
+
+            if (userToDelete.ProfileType)
+            {
+                TempData["Error"] = "Manageri ei saa kustutada!";
+                return RedirectToAction(nameof(Index));
+            }
+
             if (userToDelete.ProfileType)
             {
                 return Forbid();
             }
 
             await _userManager.DeleteAsync(userToDelete);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(string id)
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser == null || !currentUser.ProfileType)
+            {
+                return Forbid();
+            }
+
+            var userToUpdate = await _userManager.FindByIdAsync(id);
+
+            if (userToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            if (userToUpdate.ProfileType)
+            {
+                TempData["Error"] = "Manageri õigusi ei saa muuta";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var vm = new CustomersUpdateViewModel()
+            {
+                //Id = userToUpdate.Id,
+                //DisplayName = userToUpdate.DisplayName,
+                //Email = userToUpdate.Email,
+                ProfileType = userToUpdate.ProfileType
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(CustomersUpdateViewModel vm)
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser == null || !currentUser.ProfileType)
+            {
+                return Forbid();
+            }
+
+            var userToUpdate = await _userManager.FindByIdAsync(vm.Id);
+
+            if (userToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            if (userToUpdate.ProfileType)
+            {
+                TempData["Error"] = "Manageri õigusi ei saa muuta";
+                return RedirectToAction(nameof(Index));
+            }
+
+            //userToUpdate.DisplayName = vm.DisplayName;
+            //userToUpdate.Email = vm.Email;
+            //userToUpdate.UserName = vm.Email;
+
+            if (!userToUpdate.ProfileType && vm.ProfileType)
+            {
+                userToUpdate.ProfileType = true;
+            }
+
+            await _userManager.UpdateAsync(userToUpdate);
 
             return RedirectToAction(nameof(Index));
         }

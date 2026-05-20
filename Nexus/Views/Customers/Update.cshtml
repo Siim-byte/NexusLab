@@ -1,0 +1,31 @@
+﻿@model Nexus.Models.Customers.CustomersUpdateViewModel
+
+<h1>Muuda Kasutaja</h1>
+
+<div>
+    <form method="post">
+
+        <input asp-for="Id" type="hidden" />
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">
+                Manager
+            </label>
+
+            <div class="col-sm-10">
+                <input asp-for="ProfileType" />
+            </div>
+        </div>
+
+        <input type="submit"
+               value="Update"
+               class="btn btn-primary" />
+
+        <a asp-action="Index"
+               asp-controller="Customers"
+               class="btn btn-success">
+            Tagasi
+        </a>
+
+    </form>
+</div>
