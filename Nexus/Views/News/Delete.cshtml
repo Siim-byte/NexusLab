@@ -1,0 +1,25 @@
+﻿@model Nexus.Models.News.NewsDeleteViewModel
+
+<h2>Kustuta</h2>
+
+<h4>@Model.Title</h4>
+
+<p>@Model.Content</p>
+
+<form asp-action="DeleteConfirmed">
+
+    <input asp-for="NewsId" hidden />
+
+    <button class="btn btn-danger">
+
+        Remove
+
+    </button>
+
+    <a asp-action="Index"
+           asp-controller="News"
+           class="btn btn-success">
+        Tagasi
+    </a>
+
+</form>
