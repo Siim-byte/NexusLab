@@ -1,0 +1,20 @@
+﻿@model Nexus.Models.News.NewsCreateViewModel
+
+<h1>Lisa uudis</h1>
+
+<form method="post">
+
+    <label>Title</label>
+    <input asp-for="Title" class="form-control" />
+
+    <label>Content</label>
+    <textarea asp-for="Content"
+              class="form-control"></textarea>
+
+    <br />
+
+    <button class="btn btn-primary">
+        Save
+    </button>
+
+</form>
