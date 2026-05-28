@@ -11,5 +11,7 @@ namespace Nexus.Core.SeviceInterfrace
     public interface IBrandsServices
     {
         Task<Brand> Create(BrandsDTO dto);
+        Task<Brand> DetailsAsync(Guid id);
+        Task<Brand> Delete(Guid id);
     }
 }
