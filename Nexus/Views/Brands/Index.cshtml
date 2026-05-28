@@ -1,5 +1,45 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@* @using Microsoft.AspNetCore.Identity
+@inject SignInManager<Nexus.Core.Domain.ApplicationUser> signInManager;
+@inject UserManager<Nexus.Core.Domain.ApplicationUser> userManager *@
+@model IEnumerable<Nexus.Models.Brands.BrandsIndexViewModel>
+
+
+@* @{
+    var user = await userManager.GetUserAsync(User);
+} *@
 @{
+    int rowNumber = 1;
 }
+@* @if (signInManager.IsSignedIn(User)) *@
+
+    <div class="mb-3">
+        <a asp-action="Create" asp-controller="Brands" class="btn btn-primary">Add Brand</a>
+    </div>
+
+
+
+
+<h1 class="mb-4">Brand</h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nimi</th>
+            <th scope="col">Slogan</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var brand in Model)
+        {
+            <tr>
+
+
+                <td>@rowNumber</td>
+                <td>@brand.Name</td>
+                <td>@brand.Slogan</td>
+            </tr>
+            rowNumber++;
+        }
+    </tbody>
+</table>
