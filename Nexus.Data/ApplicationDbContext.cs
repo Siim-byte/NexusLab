@@ -11,5 +11,6 @@ namespace Nexus.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Brand> Brands { get; set; }
+        public DbSet<News> News { get; set; }
     }
 }

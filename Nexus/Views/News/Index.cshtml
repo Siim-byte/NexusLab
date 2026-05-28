@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Nexus.Models.News.NewsIndexViewModel>
+
+<h1>Uudised</h1>
+
+<a asp-action="Create"
+       class="btn btn-primary">
+    Lisa uudis
+</a>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Date</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>@item.Title</td>
+                <td>@item.Content</td>
+                <td>@item.CreatedAt</td>
+
+                <td>
+
+                    <a asp-action="Update"
+                           asp-route-id="@item.NewsId"
+                           class="btn btn-warning">
+                        Muuda
+                    </a>
+
+                    <a asp-action="Delete"
+                           asp-route-id="@item.NewsId"
+                           class="btn btn-danger">
+                        Kustuta
+                    </a>
+
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+</table>

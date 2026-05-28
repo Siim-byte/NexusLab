@@ -1,0 +1,28 @@
+﻿@model Nexus.Models.News.NewsUpdateViewModel
+
+<form method="post">
+
+    <input asp-for="NewsId" hidden />
+
+    <input asp-for="Title"
+           class="form-control" />
+
+    <textarea asp-for="Content"
+                  class="form-control">
+</textarea>
+
+        <br />
+
+        <button class="btn btn-primary">
+
+            Update
+
+        </button>
+
+        <a asp-action="Index"
+               asp-controller="News"
+               class="btn btn-success">
+            Tagasi
+        </a>
+
+    </form>
