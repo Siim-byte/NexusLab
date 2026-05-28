@@ -22,6 +22,7 @@ namespace Nexus
             builder.Services.AddScoped<IProductsServices, ProductsServices>();
             builder.Services.AddScoped<ICommentsServices, CommentsServices>();
             builder.Services.AddScoped<IAccountServices, AccountServices>();
+            builder.Services.AddScoped<IBrandsServices, BrandsServices>();
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
            .AddEntityFrameworkStores<ApplicationDbContext>()
