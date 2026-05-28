@@ -38,8 +38,16 @@
                 <td>@rowNumber</td>
                 <td>@brand.Name</td>
                 <td>@brand.Slogan</td>
+                <td>
+                    <div>
+                    <a asp-action="Delete" asp-controller="Brands" asp-route-id="@brand.Id" class="btn btn-danger">Kustuta</a>
+                    </div>
+                </td>
             </tr>
             rowNumber++;
+            
         }
+
+        
     </tbody>
 </table>
