@@ -11,9 +11,13 @@
 }
 @if (signInManager.IsSignedIn(User))
 {
-    <div class="mb-3">
-        <a asp-action="Create" asp-controller="Products" class="btn btn-primary">Add Product</a>
-    </div>
+    @if (user.ProfileType == true)
+    {
+        <div class="mb-3">
+            <a asp-action="Create" asp-controller="Products" class="btn btn-primary">Add Product</a>
+        </div>
+
+    }
 }
 
 
