@@ -28,7 +28,8 @@ namespace Nexus.Controllers
                 NewsId = x.NewsId,
                 Title = x.Title,
                 Content = x.Content,
-                CreatedAt = x.CreatedAt
+                CreatedAt = x.CreatedAt,
+                Likes = x.Likes
             })
             .ToList();
 

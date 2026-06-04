@@ -16,6 +16,21 @@
             <p>@item.Content</p>
 
             <small>@item.CreatedAt</small>
+            <form asp-action="Like"
+                  asp-controller="News"
+                  asp-route-id="@item.NewsId"
+                  method="post"
+                  style="display:inline;">
+
+                <button type="submit"
+                        class="btn @(item.Likes > 0 ? "btn-danger" : "btn-outline-secondary")">
+
+                    ❤️ (@item.Likes)
+
+                </button>
+
+            </form>
+            
 
         </div>
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Nexus.Core.Domain;
 using Nexus.Data;
 using Nexus.Models.News;
+using Nexus.Nexus.Core.Domain;
 
 namespace Nexus.Controllers
 {
@@ -30,7 +31,8 @@ namespace Nexus.Controllers
                     NewsId = x.NewsId,
                     Title = x.Title,
                     Content = x.Content,
-                    CreatedAt = x.CreatedAt
+                    CreatedAt = x.CreatedAt,
+                    Likes = x.Likes,
                 })
                 .ToList();
 
@@ -141,6 +143,22 @@ namespace Nexus.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Like(Guid id)
+        {
+            var news = await _context.News.FindAsync(id);
+
+            if (news != null)
+            {
+                news.Likes++;
+                _context.Update(news);
+                await _context.SaveChangesAsync();
+            }
+            Console.WriteLine($"=== LIKE ACTION HIT, id={id} ===");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
