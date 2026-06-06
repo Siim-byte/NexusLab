@@ -4,6 +4,7 @@ using Nexus.ApplicationServices.Services;
 using Nexus.Core.Dto;
 using Nexus.Core.SeviceInterfrace;
 using Nexus.Data;
+using System.IO;
 using Nexus.Models.Brands;
 using Nexus.Models.Products;
 
@@ -41,13 +42,38 @@ namespace Nexus.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(BrandsCreateViewModel vm)
         {
-            //if (ModelState.IsValid)
-            //{
+            var brandId = Guid.NewGuid();
+            if (vm.LogoFile != null && vm.LogoFile.Length > 0)
+            {
+                // Küsime veebiserverilt otse käigu pealt wwwroot kausta ametliku asukoha
+                var env = (IWebHostEnvironment)HttpContext.RequestServices.GetService(typeof(IWebHostEnvironment));
+
+                if (env != null)
+                {
+                    string uploadsFolder = Path.Combine(env.WebRootPath, "uploads", "logos");
+
+                    // Kui kausta pole olemas, teeme selle automaatselt veebijuurikasse
+                    if (!Directory.Exists(uploadsFolder))
+                    {
+                        Directory.CreateDirectory(uploadsFolder);
+                    }
+
+                    // Salvestame faili alati .jpg laiendiga
+                    string fileName = $"{brandId}.jpg";
+                    string absoluteFilePath = Path.Combine(uploadsFolder, fileName);
+
+                    using (var fileStream = new FileStream(absoluteFilePath, FileMode.Create))
+                    {
+                        await vm.LogoFile.CopyToAsync(fileStream);
+                    }
+                }
+            }
             var dto = new BrandsDTO()
             {
-                Id = Guid.NewGuid(),
+                Id = brandId,
                 Name = vm.Name,
-                Slogan = vm.Slogan
+                Slogan = vm.Slogan,
+                LogoFile = vm.LogoFile
             };
             var result = await _brandsServices.Create(dto);
             if (result != null)
@@ -55,7 +81,6 @@ namespace Nexus.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ModelState.AddModelError("", "VIGA");
-            //}
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
@@ -80,6 +105,26 @@ namespace Nexus.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(Guid Id)
         {
+            try
+            {
+                string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                string wwwrootPath = Path.GetFullPath(Path.Combine(baseDir, "../../../wwwroot"));
+                string uploadsFolder = Path.Combine(wwwrootPath, "uploads", "logos");
+
+                if (Directory.Exists(uploadsFolder))
+                {
+                    var fileToDelete = Directory.GetFiles(uploadsFolder, $"{Id}.*").FirstOrDefault();
+
+                    if (fileToDelete != null && System.IO.File.Exists(fileToDelete))
+                    {
+                        System.IO.File.Delete(fileToDelete);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
             var brand = await _brandsServices.Delete(Id);
             if (brand == null)
             {

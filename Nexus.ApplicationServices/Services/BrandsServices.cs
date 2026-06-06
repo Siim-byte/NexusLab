@@ -22,7 +22,7 @@ namespace Nexus.ApplicationServices.Services
         public async Task<Brand> Create(BrandsDTO dto)
         {
             Brand brand = new Brand();
-            brand.Id = Guid.NewGuid();
+            brand.Id = dto.Id;
             brand.Name = dto.Name;
             brand.Slogan = dto.Slogan;
 

@@ -6,6 +6,20 @@
     <h4>Brand</h4>
     <hr />
     <dl class="row">
+        <div class="form-group row mb-3">
+            <label class="col-sm-2 col-form-label">Brändi logo</label>
+            <div class="col-sm-10">
+                <picture>
+                    <source srcset="/uploads/logos/@(Model.Id).jpg" type="image/jpeg">
+                    <source srcset="/uploads/logos/@(Model.Id).png" type="image/png">
+                    <img src="/uploads/logos/@(Model.Id).jpg"
+                         alt="Logo"
+                         style="max-width: 150px; max-height: 150px; border: 1px solid white; padding: 5px; border-radius: 6px; object-fit: contain;"
+                         onerror="this.style.display='none';" />
+                </picture>
+            </div>
+        </div>
+    <dl class="row">
         <div class="form-group row">
             <label asp-for="Name" class="col-sm-2 col-form-label"></label>
             @Html.DisplayFor(model => model.Name)
