@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Nexus.Core.Dto
 {
@@ -11,5 +12,6 @@ namespace Nexus.Core.Dto
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Slogan { get; set; }
+        public IFormFile LogoFile { get; set; }
     }
 }

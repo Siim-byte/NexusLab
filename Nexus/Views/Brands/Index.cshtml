@@ -21,12 +21,14 @@
 
 <h1 class="mb-4">Brand</h1>
 
-<table class="table table-hover">
+<table class="table table-hover align-middle">
     <thead>
         <tr>
             <th scope="col">#</th>
+            <th scope="col">Logo</th>
             <th scope="col">Nimi</th>
             <th scope="col">Slogan</th>
+            <th scope="col">Tegevused</th>
         </tr>
     </thead>
     <tbody>
@@ -36,6 +38,12 @@
 
 
                 <td>@rowNumber</td>
+                <td>
+                    <img src="~/uploads/logos/@(brand.Id).jpg"
+                         alt="Logo"
+                         style="max-width: 50px; max-height: 50px; border-radius: 4px; object-fit: contain;"
+                         asp-append-version="true" />
+                </td>
                 <td>@brand.Name</td>
                 <td>@brand.Slogan</td>
                 <td>
