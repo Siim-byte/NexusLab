@@ -23,9 +23,15 @@ namespace Nexus.Controllers
             _context = context;
             _brandsServices = IBrandsServices;
         }
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
-            var result = _context.Brands.Select(x => new BrandsIndexViewModel()
+            var query = _context.Brands.AsQueryable();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                string CleanSearch = searchString.Trim().ToLower();
+                query = query.Where(x => x.Name.ToLower().Contains(searchString));
+            }
+            var result = query.Select(x => new BrandsIndexViewModel()
             {
                 Id = x.Id,
                 Name = x.Name,

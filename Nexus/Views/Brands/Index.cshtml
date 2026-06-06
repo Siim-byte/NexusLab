@@ -21,6 +21,21 @@
 
 <h1 class="mb-4">Brand</h1>
 
+<form asp-action="Index" method="get" class="mb-3" style="max-width: 400px;">
+    <div class="input-group">
+        <input type="text"
+               name="searchString"
+               class="form-control"
+               placeholder="Otsi brändi nime järgi"
+               value="@Context.Request.Query["searchString"]">
+        @if (!string.IsNullOrEmpty(Context.Request.Query["searchString"]))
+        {
+            <a asp-action="Index" class="btn btn-outline-secondary">✕</a>
+        }
+        <button type="submit" class="btn btn-primary">Otsi</button>
+    </div>
+</form>
+
 <table class="table table-hover align-middle">
     <thead>
         <tr>
@@ -32,30 +47,39 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var brand in Model)
+		@if (!Model.Any())
+		{
+			<tr>
+				<td colspan="5" class="text-center">Brände ei leitud.</td>
+			</tr>
+		}
+        else
         {
-            <tr>
+        
+            @foreach (var brand in Model)
+            {
+                <tr>
 
 
-                <td>@rowNumber</td>
-                <td>
-                    <img src="~/uploads/logos/@(brand.Id).jpg"
-                         alt="Logo"
-                         style="max-width: 50px; max-height: 50px; border-radius: 4px; object-fit: contain;"
-                         asp-append-version="true" />
-                </td>
-                <td>@brand.Name</td>
-                <td>@brand.Slogan</td>
-                <td>
-                    <div>
-                    <a asp-action="Delete" asp-controller="Brands" asp-route-id="@brand.Id" class="btn btn-danger">Kustuta</a>
-                    </div>
-                </td>
-            </tr>
-            rowNumber++;
+                    <td>@rowNumber</td>
+                    <td>
+                        <img src="~/uploads/logos/@(brand.Id).jpg"
+                            alt="Logo"
+                            style="max-width: 50px; max-height: 50px; border-radius: 4px; object-fit: contain;"
+                            asp-append-version="true" />
+                    </td>
+                    <td>@brand.Name</td>
+                    <td>@brand.Slogan</td>
+                    <td>
+                        <div>
+                        <a asp-action="Delete" asp-controller="Brands" asp-route-id="@brand.Id" class="btn btn-danger">Kustuta</a>
+                        </div>
+                    </td>
+                </tr>
+                rowNumber++;
             
+            }
         }
-
         
     </tbody>
 </table>
