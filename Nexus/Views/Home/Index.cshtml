@@ -3,7 +3,44 @@
     ViewData["Title"] = "Home Page";
 }
 
+@{
+    var sortOrder = Context.Request.Query["sortOrder"].ToString();
+}
+
 <h2>Viimased uudised</h2>
+
+
+<form method="get">
+
+    <select name="sortOrder"
+            class="form-select"
+            onchange="this.form.submit()">
+
+        <option value="date_desc"
+                selected="@(sortOrder == "date_desc")">
+            Uuemad eespool
+        </option>
+
+        <option value="date_asc"
+                selected="@(sortOrder == "date_asc")">
+            Vanemad eespool
+        </option>
+
+        <option value="title_asc"
+                selected="@(sortOrder == "title_asc")">
+            Pealkiri A-Z
+        </option>
+
+        <option value="title_desc"
+                selected="@(sortOrder == "title_desc")">
+            Pealkiri Z-A
+        </option>
+
+    </select>
+
+</form>
+
+<br />
 
 @foreach (var item in Model)
 {

@@ -18,22 +18,41 @@ namespace Nexus.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            var news = _context.News
-            .OrderByDescending(x => x.CreatedAt)
-            .Take(5)
-            .Select(x => new NewsIndexViewModel
-            {
-                NewsId = x.NewsId,
-                Title = x.Title,
-                Content = x.Content,
-                CreatedAt = x.CreatedAt,
-                Likes = x.Likes
-            })
-            .ToList();
+            var news = _context.News.AsQueryable();
 
-            return View(news);
+            switch (sortOrder)
+            {
+                case "date_asc":
+                    news = news.OrderBy(x => x.CreatedAt);
+                    break;
+
+                case "date_desc":
+                    news = news.OrderByDescending(x => x.CreatedAt);
+                    break;
+
+                case "title_asc":
+                    news = news.OrderBy(x => x.Title);
+                    break;
+
+                case "title_desc":
+                    news = news.OrderByDescending(x => x.Title);
+                    break;
+            }
+
+            var model = await news
+                .Select(x => new NewsIndexViewModel
+                {
+                    NewsId = x.NewsId,
+                    Title = x.Title,
+                    Content = x.Content,
+                    CreatedAt = x.CreatedAt,
+                    Likes = x.Likes,
+                })
+                .ToListAsync();
+
+            return View(model);
         }
 
         public IActionResult Privacy()
