@@ -49,6 +49,7 @@ namespace Nexus.Controllers
                     Content = x.Content,
                     CreatedAt = x.CreatedAt,
                     Likes = x.Likes,
+                    ShareUrl = Url.Action("Index", "Home", null, Request.Scheme) + "#news-" + x.NewsId,
                 })
                 .ToListAsync();
 

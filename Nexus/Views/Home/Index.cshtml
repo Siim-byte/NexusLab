@@ -11,40 +11,19 @@
 
 
 <form method="get">
-
-    <select name="sortOrder"
-            class="form-select"
-            onchange="this.form.submit()">
-
-        <option value="date_desc"
-                selected="@(sortOrder == "date_desc")">
-            Uuemad eespool
-        </option>
-
-        <option value="date_asc"
-                selected="@(sortOrder == "date_asc")">
-            Vanemad eespool
-        </option>
-
-        <option value="title_asc"
-                selected="@(sortOrder == "title_asc")">
-            Pealkiri A-Z
-        </option>
-
-        <option value="title_desc"
-                selected="@(sortOrder == "title_desc")">
-            Pealkiri Z-A
-        </option>
-
+    <select name="sortOrder" class="form-select" onchange="this.form.submit()">
+        <option value="date_desc" selected="@(sortOrder == "date_desc")">Uuemad eespool</option>
+        <option value="date_asc" selected="@(sortOrder == "date_asc")">Vanemad eespool</option>
+        <option value="title_asc" selected="@(sortOrder == "title_asc")">Pealkiri A-Z</option>
+        <option value="title_desc" selected="@(sortOrder == "title_desc")">Pealkiri Z-A</option>
     </select>
-
 </form>
 
 <br />
 
 @foreach (var item in Model)
 {
-    <div class="card mb-3">
+    <div class="card mb-3" id="news-@item.NewsId">
 
         <div class="card-body">
 
@@ -66,6 +45,10 @@
 
                 </button>
 
+                <button class="btn btn-outline-secondary share-btn"
+                        data-url="@item.ShareUrl">
+                    🔗 Jaga
+                </button>
             </form>
             
 
@@ -73,3 +56,51 @@
 
     </div>
 }
+
+            <div id="shareToast">Link kopeeritud</div>
+
+<style>
+    #shareToast {
+        position: fixed;
+        bottom: 28px;
+        left: 50%;
+        transform: translateX(-50%) translateY(10px);
+        background: #222;
+        color: #fff;
+        padding: 10px 22px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        z-index: 9999;
+    }
+    #shareToast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+</style>
+
+<script>
+    const toast = document.getElementById('shareToast');
+    let timer;
+
+    document.querySelectorAll('.share-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const url = btn.dataset.url;
+            try {
+                await navigator.clipboard.writeText(url);
+            } catch {
+                const tmp = document.createElement('textarea');
+                tmp.value = url;
+                document.body.appendChild(tmp);
+                tmp.select();
+                document.execCommand('copy');
+                document.body.removeChild(tmp);
+            }
+            clearTimeout(timer);
+            toast.classList.add('show');
+            timer = setTimeout(() => toast.classList.remove('show'), 2000);
+        });
+    });
+</script>

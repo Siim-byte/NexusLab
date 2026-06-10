@@ -10,5 +10,6 @@
 
         public DateTime CreatedAt { get; set; }
         public int Likes { get; set; }
+        public string ShareUrl { get; set; }
     }
 }
